@@ -4,18 +4,9 @@ import { users, teams, teamMembers } from '@/lib/db/schema';
 import { setSession } from '@/lib/auth/session';
 import { NextRequest, NextResponse } from 'next/server';
 import { stripe } from '@/lib/payments/stripe';
-import { isDatabaseAvailable, isStripeConfigured } from '@/lib/env-check';
 import Stripe from 'stripe';
 
 export async function GET(request: NextRequest) {
-  // Check if required services are available
-  if (!isDatabaseAvailable() || !isStripeConfigured()) {
-    return NextResponse.json(
-      { error: 'Service temporarily unavailable' },
-      { status: 503 }
-    );
-  }
-
   const searchParams = request.nextUrl.searchParams;
   const sessionId = searchParams.get('session_id');
 

@@ -1,19 +1,10 @@
 import Stripe from 'stripe';
 import { handleSubscriptionChange, stripe } from '@/lib/payments/stripe';
 import { NextRequest, NextResponse } from 'next/server';
-import { isDatabaseAvailable, isStripeConfigured, requireEnvVar } from '@/lib/env-check';
 
-const webhookSecret = requireEnvVar('STRIPE_WEBHOOK_SECRET');
+const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!;
 
 export async function POST(request: NextRequest) {
-  // Check if required services are available
-  if (!isDatabaseAvailable() || !isStripeConfigured()) {
-    return NextResponse.json(
-      { error: 'Service temporarily unavailable' },
-      { status: 503 }
-    );
-  }
-
   const payload = await request.text();
   const signature = request.headers.get('stripe-signature') as string;
 

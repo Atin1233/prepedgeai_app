@@ -6,21 +6,10 @@ import {
   getUser,
   updateTeamSubscription
 } from '@/lib/db/queries';
-import { isStripeConfigured } from '../env-check';
 
-// Handle missing Stripe keys during build time
-let stripe: Stripe;
-
-if (isStripeConfigured()) {
-  stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-    apiVersion: '2025-07-30.basil'
-  });
-} else {
-  console.warn('Stripe not configured - using mock client for build');
-  stripe = {} as Stripe;
-}
-
-export { stripe };
+export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+  apiVersion: '2025-04-30.basil'
+});
 
 export async function createCheckoutSession({
   team,

@@ -1,19 +1,19 @@
 import './globals.css';
 import type { Metadata, Viewport } from 'next';
-import { Inter } from 'next/font/google';
+import { Manrope } from 'next/font/google';
 import { getUser, getTeamForUser } from '@/lib/db/queries';
 import { SWRConfig } from 'swr';
 
 export const metadata: Metadata = {
-  title: 'PrepEdge AI - Smarter Prep. Sharper Edge.',
-  description: 'AI-driven SAT prep personalized to your strengths and weaknesses.'
+  title: 'PrepEdge AI - Your Edge for the SAT',
+  description: 'AI-powered SAT prep that adapts to you. Smarter prep. Sharper scores.'
 };
 
 export const viewport: Viewport = {
   maximumScale: 1
 };
 
-const inter = Inter({ subsets: ['latin'] });
+const manrope = Manrope({ subsets: ['latin'] });
 
 export default function RootLayout({
   children
@@ -23,7 +23,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`bg-white dark:bg-gray-950 text-black dark:text-white ${inter.className}`}
+      className={`bg-white dark:bg-gray-950 text-black dark:text-white ${manrope.className}`}
     >
       <body className="min-h-[100dvh] bg-gray-50">
         <SWRConfig
